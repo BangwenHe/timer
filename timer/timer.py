@@ -56,7 +56,7 @@ def get_timer(level: int = logging.DEBUG):
 
         def _start(self, name: str) -> None:
             logger = self._logger.getChild(name)
-            _log(logger, self._level, 'start')
+            # _log(logger, self._level, 'start')
             self._begin = perf_counter()
 
         def _stop(self, name: str) -> None:
@@ -66,9 +66,9 @@ def get_timer(level: int = logging.DEBUG):
             logger = self._logger.getChild(name)
 
             if self._unit == 'ms' or (self._unit == 'auto' and self._elapse < 1):
-                _log(logger, self._level, f'cost {self._elapse * 1000:.0f} ms')
+                _log(logger, self._level, f'cost {self._elapse * 1000:.3f} ms')
             else:
-                _log(logger, self._level, f'cost {self._elapse:.3f} s')
+                _log(logger, self._level, f'cost {self._elapse:.6f} s')
 
         def __enter__(self):
             self._start(self._name or 'timer')
